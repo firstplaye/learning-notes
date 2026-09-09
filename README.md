@@ -11,3 +11,18 @@
     console.log(r.test(s));//true
     console.log(r.test(s));//false
 ```
+
+3.exec()和match()的区别<br>
+`exec()`是正则对象的方法；`match()`是字符串的方法。
+```js
+    let s = 'abba';
+    let r = /a/g;
+    let r_no_g = /a/;
+
+    console.log(s.match(r)); // ["a", "a"]
+    let iterator = s.matchAll(r);
+    console.log(iterator.next().value); // ['a', index: 0, input: 'abba', groups: undefined]
+    console.log(iterator.next().value); // ['a', index: 3, input: 'abba', groups: undefined]
+    console.log(s.match(r_no_g));//['a', index: 0, input: 'abba', groups: undefined]
+    console.log(r.exec(s)); // ['a', index: 0, input: 'abba', groups: undefined]
+```
