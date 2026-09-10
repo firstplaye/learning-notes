@@ -11,6 +11,7 @@
     }
   f(); // true
 ```
+
 (2)构造函数  
 构造函数中的this，指的是实例对象。  
 如果不用new调用构造函数,this指向window。  
@@ -25,6 +26,7 @@
     console.log(a.name);
     console.log(this.name);//this指向window
 ```
+
 (3)对象的方法
 对象的方法中的this指向对象，但是方法中的方法指向的是window
 ```js
@@ -43,3 +45,12 @@
     
     application.showStatus();
 ```
+
+(4)绑定this的方法  
+call()，apply() ，bind()  
+让一个函数执行，并且在这次执行中，让这个函数内部的 this 指向你传入的对象。  
+`call(this: Function, thisArg: any, ...argArray: any[]): any;`
+
+(5)箭头函数没有自己的 this
+
+
