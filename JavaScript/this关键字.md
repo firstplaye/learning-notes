@@ -25,3 +25,21 @@
     console.log(a.name);
     console.log(this.name);//this指向window
 ```
+(3)对象的方法
+对象的方法中的this指向对象，但是方法中的方法指向的是window
+```js
+  application = {
+        id: 1,
+        name: "xiaoming",
+        showStatus() {
+
+            console.log(`${this.id}: ${this.name}`);//指向application
+            let f = function () {
+                console.log(this); //指向的window
+            };
+            f();
+        },
+    };
+    
+    application.showStatus();
+```
