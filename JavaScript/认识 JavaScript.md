@@ -134,3 +134,32 @@ function createUser(accountId, name, department) {
 console.log(createUser.length); // 3
 createUser("yamada", "山田");   // arguments.length 是 2
 ```
+
+# 立即执行函数 IIFE
+函数定义完成后会立刻执行一次。  
+```js
+(() => {
+  console.log("箭头函数立即执行");
+})();
+```
+
+# 函数闭包
+内部函数记住了外部函数的变量，即使外部函数已经执行结束，这些变量仍然可以被内部函数使用。
+```js
+    function outer() {
+        let count = 0;
+
+        function inner() {
+            count++;
+            console.log(count);
+        }
+
+        return inner;
+    }
+
+    const fn = outer();
+
+    fn(); // 1
+    fn(); // 2
+    fn(); // 3
+```
