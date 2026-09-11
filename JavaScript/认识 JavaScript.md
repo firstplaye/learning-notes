@@ -11,24 +11,46 @@ defer 表示：先解析 HTML，等页面结构准备好后再执行 JavaScript�
 引用类型，object（array,function,date,regexp）
 
 # null和undefined和NaN的区别  
-undefined表示变量已声明但未赋值。
-null表示一个空对象引用，通常用于显式清空变量。主动清空，或者在查找时找不到也会为null
+undefined表示变量已声明但未赋值。  
+null表示一个空对象引用，通常用于显式清空变量。主动清空，或者在查找时找不到也会为null  
 null属于object类
+数组属于对象，因此`typeof`数组也得到 "object"。  
 ```js
     const input = document.querySelector("#input-text");
     console.log(input);//null
     console.log(typeof null);//object
 ```
-NaN不是有效数字，NaN属于number，判断时需要用`isNaN()`不能用`===`因为`NaN===NaN`为`false`
+NaN不是有效数字，NaN属于number，判断时需要用`isNaN()`不能用`===`因为`NaN===NaN`为`false`  
 
 # 变量提升
-JavaScript执行代码前，会先处理当前作用域中的变量声明。这个现象称为变量提升（hoisting）。
-var，let，const，function都会变量提升，但是let，const会暂时性死区，不能被提前调用。
+JavaScript执行代码前，会先处理当前作用域中的变量声明。这个现象称为变量提升（hoisting）。  
+var，let，const，function都会变量提升，但是let，const会暂时性死区，不能被提前调用。  
 ```js
     sayHello();//Hello
     function sayHello() {
         console.log("Hello");
     }
+```
+但是`let a = function(){}`不能被提前调用  
+
+# == 和 === 的区别
+`==`会进行类型转换所以判断相等要用`===`
+
+# 是否修改原数组
+`push()`直接修改了`statuses`。  
+```js
+    const statuses = ["pending", "approved"];
+    statuses.push("cancelled");
+
+    console.log(statuses);// ["pending", "approved", "cancelled"]
+```
+slice() 返回新数组，不修改 statuses。  
+```js
+    const statuses = ["pending", "approved", "cancelled"];
+    const firstTwo = statuses.slice(0, 2);
+    
+    console.log(statuses); // 原数组不变
+    console.log(firstTwo); // ["pending", "approved"]
 ```
 
 
