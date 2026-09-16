@@ -9,4 +9,4 @@
 
 ## TypeScript
 
-- [快速入门](./快速入门.md)
+- [快速入门](./TypeScript/快速入门.md)
