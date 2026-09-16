@@ -1,0 +1,53 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Vue Playground: 为当前笔记生成运行链接",
+      "detail": "扫描当前 Markdown 文件里的 Vue 代码块，在下方写入/更新 Playground 运行链接",
+      "type": "shell",
+      "command": "node",
+      "args": ["tools/vue-playground.mjs", "${file}", "--write"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      }
+    },
+    {
+      "label": "Vue Playground: 生成当前代码的分享链接",
+      "detail": "为当前打开的 .vue / .js 文件生成 Playground 分享链接",
+      "type": "shell",
+      "command": "node",
+      "args": ["tools/vue-playground.mjs", "${file}"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      }
+    },
+    {
+      "label": "Vue Playground: 检查笔记链接是否为最新",
+      "detail": "检查当前 Markdown 文件里的 Playground 链接是否需要更新",
+      "type": "shell",
+      "command": "node",
+      "args": ["tools/vue-playground.mjs", "${file}", "--check"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      }
+    }
+  ]
+}
