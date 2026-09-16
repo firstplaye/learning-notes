@@ -40,12 +40,14 @@ const task = ref({
   Proxy检测到
      ↓
   Vue知道数据变了
-     ↓ 
+     ↓
   重新更新需要更新的页面
 ```
 
 ### (2)`reactive()`和`ref()`的区别
-当ref(对象)时，对于对象.value重新赋值时本质上是给了value一个新的对象。  
+
+#### (1)当ref(对象)时，对于对象.value重新赋值时本质上是给了value一个新的对象。
+
 ```
   <script setup>
 import { reactive, ref } from 'vue'
@@ -80,4 +82,33 @@ console.log(user.value);//Proxy(Object) {name: '李四', age: 30}
   <!-- 李四 -->
 </template>
 ```
->  [运行](https://play.vuejs.org/#eNp9U8Fu1DAQ/RXjy+5Ku0nFIg5LWglQD3CgFSBOlqqQToIXx7bsybJVlA/gwg9USP0MDpz4Fsp3ME6aTbbq9mR75r03bzx2zV9aG20q4Cue+MxJi8wDVvZEaFla45DVzEGaodzAnHY5a1juTMkmRJoILXRmtEeWG1ey4x10WgvNGEpUsGKTyTycUu9loWEIWCeNk3hFAU30VIVwMxtEKw+uFc07PZ2WgX37++bvr+93ogVFnh7t87LKOdB4cccPS7RJVQUv4jighgBlx8r/fv64vb4eKS+Dci9sFETKFNN9+eNxgRlVyFPl4TAjQM6d2V5Nzz6vIcPZn5v6XmN9V1R5rLJf5oBG30LvnzSSuJsszZQOCKVVKQKdGEvsSV2P3UVBpmmSOLwAyj9ZLFhniy0WA+UQtKveQZN4VEpoPufoqZ1cFtHaG00vrr16wTNTWqnAnVmU1K7gq24oIZcqZb69bWPoKmgn03K+QPb1gfjab0NM8HMH5HEDgu9ymLoCsEuffngHW9rvkqW5rBShH0m+BxpFFTx2sFeVviTbI1zr9k37b6QuPvrTLYL2fVPBaEA2LV5w+kGvH2l9sLuMnrU8eot0ixfoP4ELqnSFz6OjaMmb/xsDUbA=)
+
+> [运行](https://play.vuejs.org/#eNp9U8Fu1DAQ/RXjy+5Ku0nFIg5LWglQD3CgFSBOlqqQToIXx7bsybJVlA/gwg9USP0MDpz4Fsp3ME6aTbbq9mR75r03bzx2zV9aG20q4Cue+MxJi8wDVvZEaFla45DVzEGaodzAnHY5a1juTMkmRJoILXRmtEeWG1ey4x10WgvNGEpUsGKTyTycUu9loWEIWCeNk3hFAU30VIVwMxtEKw+uFc07PZ2WgX37++bvr+93ogVFnh7t87LKOdB4cccPS7RJVQUv4jighgBlx8r/fv64vb4eKS+Dci9sFETKFNN9+eNxgRlVyFPl4TAjQM6d2V5Nzz6vIcPZn5v6XmN9V1R5rLJf5oBG30LvnzSSuJsszZQOCKVVKQKdGEvsSV2P3UVBpmmSOLwAyj9ZLFhniy0WA+UQtKveQZN4VEpoPufoqZ1cFtHaG00vrr16wTNTWqnAnVmU1K7gq24oIZcqZb69bWPoKmgn03K+QPb1gfjab0NM8HMH5HEDgu9ymLoCsEuffngHW9rvkqW5rBShH0m+BxpFFTx2sFeVviTbI1zr9k37b6QuPvrTLYL2fVPBaEA2LV5w+kGvH2l9sLuMnrU8eot0ixfoP4ELqnSFz6OjaMmb/xsDUbA=)
+
+#### (2)reactive不能随意整体替换
+```
+<script setup>
+import { reactive, ref } from 'vue'
+const user = reactive({
+  name: '张三',
+  age: 20
+})
+
+// user = {
+//   name: '李四',
+//   age: 30
+// }
+//此时会报错，因为user本身属于const对象不能再被指向其他对象
+user.name = '李四'
+user.age = 30
+console.log(user.name);
+console.log(user.age);
+
+</script>
+
+<template>
+  <p>{{ user.name }}</p>
+  <p>{{ user.age }}</p>
+</template>
+```
+> [运行](https://play.vuejs.org/#eNp9UkFr1EAY/SvDXLaFJSmueFhjQaUHPaioeBqQkH4bU5OZYWayLoScREVpi4IouioqeqoivZS6rv8mCevJv+A3EzdWKL2EzHvfm/fmzRT0vJTeOAc6pIGOVCIN0WByuc54kkmhDCmIgjAyyRj6+DciJRkpkZEeinqMR4JrQ3INipzrBlcKxgnhYQZD0qvn76vDx72+hcIYkVNrjJerjDPu+0slCnDRaZq3u/V0ajUOdbIBynBV2m/z9VPz8qCav26efP71/NXv+XY9RZeZ3a1582Ux26v331WzXZeu/vZ9sf+hOtxZ3P9ZP9xZfNxrth/VT5/VDw6qHy9alnEr9aw9pln6/0XRHkHrb/cTKXipiFc6werZYwjUWJzxwG9rxUJxYSCTaWgAV4QEcr0oXAOtcVkGvi3+P8aaL4nAP6JnnPap0eg8SmJvSwuOd+iKZzQSmUxSUFelSTAZo0PbMDaJXJim4t5lhxmVg7sXp7kD0d1j8C09sRij1xRgoDEw2nEmVDGYlt64cQUm+N+RmdjMU5w+gbwO2FpuM7ZjF3K+ibGPzLm0l9xLTHh8U29MDHC9PJQNaidLN88ovsmLJxz9X9yBd9rp8CVii7eNvgXK7ooVnvHWvAEt/wBRNijp)
