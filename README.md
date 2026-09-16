@@ -2,4 +2,11 @@
 
 ## JavaScript
 
-- [1.正则表达式](./正则表达式.md)
+- [认识 JavaScript](./JavaScript/认识%20JavaScript.md)
+- [this 关键字](./JavaScript/this关键字.md)
+- [DOM 和 BOM](./JavaScript/DOM和BOM.md)
+- [正则表达式](./JavaScript/正则表达式.md)
+
+## TypeScript
+
+- [快速入门](./快速入门.md)
