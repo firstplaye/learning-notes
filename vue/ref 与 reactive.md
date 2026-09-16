@@ -112,3 +112,5 @@ console.log(user.age);
 </template>
 ```
 > [运行](https://play.vuejs.org/#eNp9UkFr1EAY/SvDXLaFJSmueFhjQaUHPaioeBqQkH4bU5OZYWayLoScREVpi4IouioqeqoivZS6rv8mCevJv+A3EzdWKL2EzHvfm/fmzRT0vJTeOAc6pIGOVCIN0WByuc54kkmhDCmIgjAyyRj6+DciJRkpkZEeinqMR4JrQ3INipzrBlcKxgnhYQZD0qvn76vDx72+hcIYkVNrjJerjDPu+0slCnDRaZq3u/V0ajUOdbIBynBV2m/z9VPz8qCav26efP71/NXv+XY9RZeZ3a1582Ux26v331WzXZeu/vZ9sf+hOtxZ3P9ZP9xZfNxrth/VT5/VDw6qHy9alnEr9aw9pln6/0XRHkHrb/cTKXipiFc6werZYwjUWJzxwG9rxUJxYSCTaWgAV4QEcr0oXAOtcVkGvi3+P8aaL4nAP6JnnPap0eg8SmJvSwuOd+iKZzQSmUxSUFelSTAZo0PbMDaJXJim4t5lhxmVg7sXp7kD0d1j8C09sRij1xRgoDEw2nEmVDGYlt64cQUm+N+RmdjMU5w+gbwO2FpuM7ZjF3K+ibGPzLm0l9xLTHh8U29MDHC9PJQNaidLN88ovsmLJxz9X9yBd9rp8CVii7eNvgXK7ooVnvHWvAEt/wBRNijp)
+
+## 3.toRefs()[扩展]
