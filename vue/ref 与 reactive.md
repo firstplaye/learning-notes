@@ -113,4 +113,109 @@ console.log(user.age);
 ```
 > [运行](https://play.vuejs.org/#eNp9UkFr1EAY/SvDXLaFJSmueFhjQaUHPaioeBqQkH4bU5OZYWayLoScREVpi4IouioqeqoivZS6rv8mCevJv+A3EzdWKL2EzHvfm/fmzRT0vJTeOAc6pIGOVCIN0WByuc54kkmhDCmIgjAyyRj6+DciJRkpkZEeinqMR4JrQ3INipzrBlcKxgnhYQZD0qvn76vDx72+hcIYkVNrjJerjDPu+0slCnDRaZq3u/V0ajUOdbIBynBV2m/z9VPz8qCav26efP71/NXv+XY9RZeZ3a1582Ux26v331WzXZeu/vZ9sf+hOtxZ3P9ZP9xZfNxrth/VT5/VDw6qHy9alnEr9aw9pln6/0XRHkHrb/cTKXipiFc6werZYwjUWJzxwG9rxUJxYSCTaWgAV4QEcr0oXAOtcVkGvi3+P8aaL4nAP6JnnPap0eg8SmJvSwuOd+iKZzQSmUxSUFelSTAZo0PbMDaJXJim4t5lhxmVg7sXp7kD0d1j8C09sRij1xRgoDEw2nEmVDGYlt64cQUm+N+RmdjMU5w+gbwO2FpuM7ZjF3K+ibGPzLm0l9xLTHh8U29MDHC9PJQNaidLN88ovsmLJxz9X9yBd9rp8CVii7eNvgXK7ooVnvHWvAEt/wBRNijp)
 
+#### (3)解构为什么可能失去响应性
+```
+const form = reactive({
+  title: '规格确认',
+  priority: 'normal',
+})
+
+const { title } = form
+form.title = '规格再确认'
+
+console.log(title) // 仍然是“规格确认”
+
+```
+
 ## 3.toRefs()[扩展]
+把`reactive`对象里的每个属性，分别变成一个`ref`，同时保持和原对象的连接。作用：在解构赋值后仍然保持联系。
+```
+<script setup>
+import { reactive, toRefs, isRef } from 'vue'
+
+const user = reactive({
+  name: '张三',
+  age: 20
+})
+
+const userRefs = toRefs(user)
+
+console.log(userRefs);
+console.log(isRef(userRefs.age));//true
+console.log(isRef(userRefs.age));//true
+</script>
+<template>
+  <p>
+    {{ isRef(userRefs.age) }}
+  </p>
+</template>
+```
+> [运行](https://play.vuejs.org/#eNqVUk1Kw0AUvspjNjEQkmLFRRsFlS50oVLF1YCE9DWmJjPDzKQWQg7gLTyGC4+j9/DNBGMLUjCbDN/PvG8+XsvOlIrXDbIJS02uS2XBoG3UKRdlraS20ILGLLflGiOwco5LE0Fp6A8dLLWsISB7wAUXuRTGQmNQw8lgOmi5ABBZjRMIvj7ePt9fg8hBWUHI4YiLLtw1uxF0QT/rwCGDQFYYV7LwoGPD6S7ucw1sTCPCcJokVjf4D2Ga9E1QB6nFWlWZRToDpK4WoK9t+wp2b4Cu86rEydJky8oFi5g1lGBZFvHKSEF9+2I4y2Wtygr1jbIlJeRsAp5xXFZV8uXKYy6a7817njB//gNfmY3DOLvVSMnWyNnA2UwXaHt6dneNGzoPZC0XTUXqPeQcqb3GZexl541YUOwtnU976bemFMW9mW0sCvPzqL5bgM7rOaOtudjz9N+44/jI+2hTqMVHax5Qu1upwuN4FI9Z9w2hxPDl)
+
+### 注：toref作用于ref对象时相当于对象.value下的属性均转化成ref对象
+```
+const user = ref({
+  name: '张三',
+  age: 20
+})
+
+const { name, age } = toRefs(user.value)
+console.log(user.value);
+console.log(name);//这里的name和age都变成了ref的对象;
+console.log(age);
+```
+```
+  user
+ ↓
+Ref
+ ↓
+.value
+ ↓
+Proxy
+ ┌──────────────┐
+ │ name: 张三   │
+ │ age: 20      │
+ └──────────────┘
+       ↓ toRefs
+ ┌─────────┐    ┌─────────┐
+ │ name Ref│    │ age Ref │
+ └────┬────┘    └────┬────┘
+      ↓              ↓
+ name.value        age.value
+      ↕              ↕
+ user.value.name  user.value.age
+```
+### toRefs作用于reactive对象时
+```
+const user = reactive({
+  name: '张三',
+  age: 20
+})
+const { name, age } = toRefs(user)
+console.log(name);//两者也都变成了ref的对象
+console.log(age);
+```
+```
+user.value
+   ↓
+Proxy
+{
+  name: "张三",
+  age: 20
+}
+
+          toRefs()
+             ↓
+
+name ──→ Ref
+          ↓
+       .value
+          ↓
+   user.value.name
+
+age ──→ Ref
+          ↓
+       .value
+          ↓
+   user.value.age
+```
