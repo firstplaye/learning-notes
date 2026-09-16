@@ -70,6 +70,62 @@ $$\text{URL} = \texttt{https://play.vuejs.org/\#} + \mathrm{base64}\big(\mathrm{
 - 代码块内容变了，记得重新跑一次 `--write`，否则链接还是旧代码。
   可以用 `--check` 检测。
 
+---
+
+# 附：一键同步到 GitHub（`git-sync.mjs`）
+
+> 上面讲的都是 `vue-playground.mjs`，下面这份是同一个目录里的另一个工具。
+
+把「`add` → `commit` → `pull --rebase` → `push`」四步合成一条命令，提交信息不用自己想。
+
+```bash
+node tools/git-sync.mjs
+```
+
+## 用法
+
+| 场景 | 命令 |
+| --- | --- |
+| 日常同步当前目录 | `node tools/git-sync.mjs` |
+| 同步别处的仓库 | `node tools/git-sync.mjs ../vue-demo` |
+| 自己指定提交信息 | `node tools/git-sync.mjs -m "修正: xxx"` |
+| 新仓库首次接入远端 | `node tools/git-sync.mjs --init https://github.com/<用户名>/<仓库>.git` |
+| 只预览，不改任何东西 | `node tools/git-sync.mjs --dry-run` |
+
+## 在 VS Code 里点一下
+
+`Ctrl+Shift+P` → `Tasks: Run Task`，选：
+
+- **Git: 一键同步到 GitHub** — 真正执行同步
+- **Git: 预览将要同步的内容** — 等价于 `--dry-run`
+
+也可以直接双击 `tools/sync.cmd`。把一个文件夹拖到它上面，就能同步那个目录里的仓库。
+
+## 执行顺序
+
+```
+1. 找仓库根目录，检查远端和提交者身份
+2. git add -A
+3. 有改动就提交（信息自动生成，或用 -m 指定）
+4. git pull --rebase --autostash    ← 先对齐远端，避免 push 被拒
+5. git push
+```
+
+第 4 步是关键：如果你在 GitHub 网页上直接改过文件，本地就落后于远端，
+这时直接 `push` 会被 `non-fast-forward` 拒掉，先 rebase 就永远不会遇到。
+
+## 出错时的行为
+
+| 情况 | 表现 |
+| --- | --- |
+| 没有改动、也没有待推送的提交 | 打印「已经是最新」直接退出，什么都不做 |
+| 没配 `user.name` / `user.email` | 停在第 1 步，并提示可以直接沿用历史提交里的身份 |
+| 拉取时和远端冲突 | 自动 `git rebase --abort` 还原现场，再让你手动处理 |
+| 目录不是 Git 仓库 | 提示加 `--init <仓库地址>` |
+| 处于游离 HEAD | 提示先 `git switch <分支>` |
+
+**任何一步失败都会立刻停下**，不会带着半成品状态继续往下走。
+
 ## 相关
 
 - [Vue SFC Playground](https://play.vuejs.org)

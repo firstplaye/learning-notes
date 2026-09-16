@@ -48,6 +48,38 @@
         "panel": "shared",
         "clear": true
       }
+    },
+    {
+      "label": "Git: 一键同步到 GitHub",
+      "detail": "add → commit → pull --rebase → push，提交信息自动生成",
+      "type": "shell",
+      "command": "node",
+      "args": ["tools/git-sync.mjs"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      }
+    },
+    {
+      "label": "Git: 预览将要同步的内容",
+      "detail": "只显示会提交/推送什么，不改动仓库（--dry-run）",
+      "type": "shell",
+      "command": "node",
+      "args": ["tools/git-sync.mjs", "--dry-run"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      }
     }
   ]
 }
