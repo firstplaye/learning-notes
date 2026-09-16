@@ -170,13 +170,23 @@ Vue Playground 链接生成器
 `)
 }
 
+/**
+ * 按文件真实的换行风格切分。
+ * 不能简单用 split('\n')：那样在 CRLF 文件里，插入的新行会是裸 LF，
+ * 造成同一文件混用两种行尾；而且已有行会带尾随 \r，导致「内容相同」被误判成「需要更新」。
+ */
+function splitByEol(text) {
+  const eol = text.includes('\r\n') ? '\r\n' : '\n'
+  return { lines: text.split(eol), eol }
+}
+
 function runOnMarkdown(file, { write, check, retag }) {
   const markdown = readFileSync(file, 'utf8')
-  const lines = markdown.split('\n')
+  const { lines, eol } = splitByEol(markdown)
 
   if (write) {
     const { total, added, updated, retagged } = processMarkdown(lines, { retag })
-    const output = lines.join('\n')
+    const output = lines.join(eol)
     if (output === markdown) {
       console.log(`${file}: ${total} 个 Vue 代码块，链接均为最新，未改动`)
     } else {
@@ -192,7 +202,7 @@ function runOnMarkdown(file, { write, check, retag }) {
   if (check) {
     const probe = lines.slice()
     processMarkdown(probe, { retag })
-    if (probe.join('\n') === markdown) {
+    if (probe.join(eol) === markdown) {
       console.log(`${file}: 链接均为最新 ✅`)
       return 0
     }
