@@ -187,3 +187,40 @@ function deleteTask(id: number) {
 ```
 > [完成](https://play.vuejs.org/#eNp9U81u00AQfpXBp0QqdqUiDmlS8dcDHABB1UtdIdcep9ts1tbuOm0VRUKoQvyI3gC1F4qEeqvUC6IQHidO4C2Y3XXTVEX1wdqd2fnmm29m+t7dPPd7BXoNr6liyXINCnWRA49EuxV6WoXeUihYN8+khj5ITGEAqcy6EHoUF3qLoQiF3s0RViLVgRb0QwHAkgaIoruBkvwAmmmODVBaMtEmy8BGxZlQGjSFKYoj6KaBWFtfqq2t1+2LtBCxZpmAKEmMr1Z38DbG70W8QD8v1GbNWl3aB5FGX2TbtfqcM1bJQ688OR79PIJVQ9u4BibJ4FKeBDlqtKkuSrialOjOUkgZ1yhrxgStJevyWQI3Wi1iVF8MgvL09ejsw+Tk7ejXfnl2XL45+nvwrXz5e3K4N/50Ov54Ohnu/fn+fjI8KPe/uKtl1gxcU6gFdNHYzTlVRzeA5kahNTG+E3MWd6hVlUS2X6bs8Y9h+e5oNKT/VxsQuAiLRdccejdZanpsK+Eo2noTWsR5njCCoEI5fDX+fAklPwcoOCEgV44PGThzByB7mskKGphwYjnRzdfo4G7lJZ3O7RUMQL/vJLSNg4HtkPNcKXqmXxVafSqA+ZzS0/ALCdyVM6dlUHA6NIOpwt4cjT7NZ8ra/pbKBO2HnYHQi7NuzjjKJ7kZGCqq4abD+CLOs+1H1qZlgdX8Ucwmxp3/2LfUjrGF3lOJCmWP5nLq05Fso3bu5eePcYfOU2c3SwpOr69xPkOV8cJwdM/uFSIh2jPvLNuHdrNpK1fU8o5Goc6LMkTtktj3dtnvX1P6Bd0F/5aNowEmFV9otYrSoJKEt/15f8Eb/APEXJNz)
 
+## 6.v-model
+### v-model 主要解决的是：
+表单元素的“数据 → 页面”和“页面输入 → 数据”之间需要手动同步的问题。它是Vue中实现双向绑定的语法糖。  
+“双向绑定”？因为数据和页面之间有两个方向。
+#### 1. 不使用 v-model 时
+```
+<script setup>
+import { ref } from "vue";
+
+const username = ref("");
+</script>
+
+<template>
+  <input
+    :value="username"
+    @input="username = $event.target.value"
+  />
+
+  <p>输入的内容：{{ username }}</p>
+</template>
+```
+> [运行](https://play.vuejs.org/#eNp9UT1LA0EQ/SvLYqEgFyFiES/BD1JooaJitSDHZRIv3u0uu7Nn4LjO+Afs0tvaC+K/Cdr5F5zdIx+FpNuZ9+btezMVP9Y6Kh3wDo9tajKNzAI63RMyK7QyyCpmYMhqNjSqYIITV/BDIYVMlbTInAUjkwJY1/O2BRd8h+C41aiRDhUIhc4TBKoYizOpHfoXY50yyR10BV/I0HwAjgJpDSD9LShBYoSJGQFGYbKht8IvpKx7P1+v8+nb9+x5/jKdv3/8fs6qauWxruOWjxa31hzxXY6WwgyzUTS2StIqKq8meKoKneVgLjVmFFbwDguIx5I8V0/noYfGwe6inz5A+vhPf2wnvif4lQGyU5L1JdYkauD+zQVM6L0ECzVwObE3gNdgVe68x4Z24uSAbK/xgtuzcNBMjm5tf4Ig7SKUN+qZdeCHG59uiL6y2472w5yQNW3xHu0dGK9KKzyI9qI2r/8A3m/QNw==)
+
+#### 2. 使用 v-model
+```
+<script setup>
+import { ref } from "vue";
+
+const username = ref("");
+</script>
+
+<template>
+  <input v-model="username" />
+
+  <p>输入的内容：{{ username }}</p>
+</template>
+```
