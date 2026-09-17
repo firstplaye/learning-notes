@@ -30,3 +30,17 @@ const saving = true
 
 ## 3.v-on
 ### v-on:click通常简写为@click
+```
+<script setup>
+function showMessage() {
+  window.alert('确认了任务内容')
+}
+</script>
+
+<template>
+  <button type="button" @click="showMessage">
+    确认
+  </button>
+</template>
+```
+> [运行](https://play.vuejs.org/#eNp9UctOAjEU/ZWmGyAhgwnGBUHjIyw08RE1rpqYsVyGgZm2aW8ZDGEpC/+CxDV75Xcg+hnemQnIwrDrPefc03PaCT8zJhh54C3edtLGBpkD9OZEqJ5XEmOtmOvr7BqcCyOo1thEKMayWHV1FoQJWKxWvueLn8XH6mu2Wi7X7/P17G29+KzUhJoK1W6UtmRIA0JqkhCBJsbaLx6R/PHVwLHg5SQ4O5VJLIeE7FwseLHCWHlXsd4oN4hoN3aMeZ2jk1r14igYOK2oWpFZcKlTE1PkW5P3coK3yjY5FyaJzq4KDK2H+gaXfZDDf/CBG+eY4HcWHNgRJdxyGNoIsKQ7DzcwpvOWTHXXJ6TeQ96D04nPM5ayc6+6FHtHV6S9TI22GKvo0XXGCMptSuVBc+W00AtO/3uxp/pf3GZwWOzRz9ErPqN7Apu70hMeBQdBk09/Ac2PxKI=)
