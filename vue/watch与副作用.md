@@ -73,3 +73,39 @@ watch(keyword, (newValue, oldValue) => {
 }, { immediate: true })
 ```
 
+## watch的三个参数
+### watch(source, callback, options)
+```
+watch(
+  第1个参数,  // 监听谁
+  第2个参数,  // 变化后做什么
+  第3个参数   // 怎么监听
+)
+```
+#### source需要接收一个Getter 函数、一个 Ref、一个 Reactive 对象，或者这些类型的数组。
+点三次button，console会输出什么  
+```
+<script setup>
+import { reactive, watch } from 'vue'
+
+const user = reactive({
+  name: '张三',
+  age: 18
+})
+
+watch(user.age, (newAge, oldAge) => {
+  console.log(`年龄变了：${newAge}`)
+},{immediate : true})
+
+</script>
+
+<template>
+  <button type="button" @click="user.age++">+1</button>
+</template>
+```
+> [运行](https://play.vuejs.org/#eNp9UsFqFEEQ/ZWiEXbDDrOGiMgyuxglBz2oqHhqMONsZdJJT3fTXbO7MsxNBE9exZMf4UEl+DXZgyd/weoesuYQcpqueu9Vv1fTnTh0Ll+1KGaiCJVXjiAgtW4hjWqc9QQdeCwrUivMYF1SdQo9nHjbwIhlI2mkqawJBG1AD/MdedxJA2DKBmcw2l58u/zxaZTFVllzZ/+BNP1eFKeR4yjOGclgbHB9GA9WL/m7B/MFpFHxFqsx17YeH29/fv/z+8P285fLXx//Xny90w2q/phn9lmnmgaXqiSEGZBvcbiqmA4JORsXhI3TTOEKoHjXElkD9N7hXIqhkgIeVlpV59y5MjiZSLGY7BfTgcLiYrqbJDJBgX2eqDo/C9bwUpN1KSrbOKXRP3ekOIcUsyFUxEqt7fpp6kWvaUlJc4rV+Q39s7CJPSleeGRXK5Rih1Hpa6QBPnr1DDd83oGNXbaa2beAL5F33EaPA+1Ra5Zs+xovuX2SnoYy9etwtCE04SpUNBqZfeJLwU/k8S3R/9s9yO8lHf8+3uJbCm/Qx6m8wvv53fxA9P8ApePryg==)
+
+<details>
+<summary>点击展开</summary>
+这里只会输出一个undefined,因为user.age是一个值而不是一个监听对象或者数据源，需要写成`()=>user.age才行。
+</details>
