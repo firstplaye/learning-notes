@@ -32,3 +32,4 @@ app.component('PageTitle', PageTitle)//应用级全局注册
 
 app.mount('#app')
 ```
+
