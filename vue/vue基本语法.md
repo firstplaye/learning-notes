@@ -79,7 +79,7 @@ function changeStatus() {
 > [运行](https://play.vuejs.org/#eNp9U01r20AQ/SvDXuxAKhdSegiS6Qc5tIe2NKWnhaLKI0eJtCv2QzWYQNJLgmmgl94KLf2AXkoolPaS/Joi1znlL2SktRRD4oAOq5n3Zt68nR2z+3nuFRbZOvN1pJLcgEZj8z4XSZZLZWAMCmPYhVjJDDoE7XDBRSSFJqgJjdUQVJBuJ5XhIBHDzkoFiK2ITCIFRFuhGOJmjeyuwJgLgCSGruN6RZhahCAI4JLvQDAv30Cgo20UodYkAEgQphqXVGqASyuhUlIt1lmCayTVSC7o83vOJjKIfgxmeRoapD8Af5AU9YGOORS3kjjgrLFocUDO+tOfX8uPP8rJ59npqed5fq9yvGVWkq7S2/FZ3xGnh+/Lyafzk/1r6HNI+e3X7Pf385N3s+O/ZwdHs+MP//beOvic8NoaQ9d0L0qTaIc6Lt4XdXIogPLwYHr05f/kz3Rvf87sOaqbveeG93utJWyVGU17EidDb1tLQStWu0wtZJYnKaqnebUh1GW98Z+zME3lm8d1zCiLq0082sJo55r4th5VMc6eKdSoCuSszZlQDdG49MbmExzRuU1mcmBTQt+QfI5aprbS6GAPrBiQ7AVcrfZR/VDoYl/ojZFBoZuhKqH15tR4zujxPLxh9Eu5a96dZuPIxVdGv0RVVSUL73q3vTW2ewG6m1AJ)
 
 ### 注：v-show和v-if的区别
-v-show元素始终存在于 DOM 中，只是通过 CSS 的 display 属性控制是否显示。 
+v-show元素始终存在于 DOM 中，只是通过 CSS 的 display 属性控制是否显示。简单提示频繁显示和隐藏时推荐使用v-show
 ```
 <script setup>
 import { ref } from 'vue'
@@ -96,3 +96,43 @@ const isShow = ref(true)
 </template>
 ```
 > [运行](https://play.vuejs.org/#eNp9UT1PAjEY/iu1C5rgnQnGgRzEjzDooEaMUxODR4HCXdu0PSAhN8NicAJ1NDqqk4sm+mfkxH9h2wung2Fr3+ejz/N2AHc4d7oRhkXoSV8QroDEKuJlREnImVBgAARugBg0BAtBTlNziCLqMyoVILLaYj1QMpRVJSK8hqjnpj7aQV8UDnlQU1jfAPA46K5LrSghmEoRLM8/bpKnl2QynD1OZ+Pnz7eH5Pr96/41GU2+b6/m07HnmjRWfxEpxSjY9gPidzIT/f5KZmd4AMxGw+TyLjWySjeVathzs0wwD5XUTRqk6bQlo3oJA8NG0GchJwEWR1wR3RTBIrCIwWpBwHoHdmYq5xdzv4X9zj/ztuybGYLHAkssuhjBDFM10cQqhSvVQ9zX5wwMWT0KNHsJeIIlCyKTMaXtRrSuY//h2bT79isJbZ7KSl9hKhelTFDDjC0fQf29e0uq/8YtOJtWh2ist3iu5BkWxlWvcMvZcAow/gGP69gF)
+
+## 5.v-for
+Vue 中的列表渲染，就是把一个数组中的多个数据，自动生成多个 HTML 元素。
+```
+<script setup>
+const fruits = ['苹果', '香蕉', '橘子']
+</script>
+
+<template>
+  <ul>
+    <li v-for="fruit in fruits" :key="fruit">
+      {{ fruit }}
+    </li>
+  </ul>
+</template>
+```
+> [运行](https://play.vuejs.org/#eNp9Uc1KAzEQfpWQSy91V1A8lK2g0oMeVFS8GJGynda02STkp1aWfQDx4kVQEI+CBx/AB7LUt3CSbasH6Skz833zzTeTku5onYw90BbNbG64dsSC83qbyVxJ60jfeO4saZOLxuz+c/r60miSxvfb8+zxLkTT96evj4fGJZNZWvdjJyYOCi26DjAjJPMivhgJTsZrfWXajEZlwuV8BKOkNYLbBcDovIWQsqwppKrmKqngtXAalbN0OY42qbPovM8HydAqiXuVgclorgrNBZgj7ThuxmiLRCRgXSHUzUGsOeOhuajn15CP/qkP7STUGD02YMGMgdEl5rpmAGg/wJ3TQ5hgvAQL1fMC2SvAE7BK+OCxpu162UPbf3jR7X6hlXFcDs5sZ+JA2sVSwWhgVpHPKH7u3orVf+1uJJuxj8kKr3jl7DmYoIon3ErWkw1a/QCk37qW)
+
+### (1)为什么要写 :key？
+key 是 Vue 用来识别每一个列表项目的标识。
+
+### (2)为什么不建议直接用数组索引？
+如果列表会增加、删除、排序，索引可能发生变化，Vue 就不容易准确识别原来的项目。
+
+### (3)push()、find()、属性赋值和filter() 的区别
+`push()`：在数组末尾添加元素,返回值： 修改后的数组长度   
+`find()`: 查找符合条件的第一个元素,返回值：第一个符合条件的元素,找不到时： undefined。  
+属性赋值不是一个数组方法，而是直接给对象属性设置新值。  
+`filter()`：筛选出符合条件的所有元素,返回值：一个新数组
+```
+const fruits = [
+  { id: 1, name: '苹果' },
+  { id: 2, name: '香蕉' },
+  { id: 3, name: '橘子' }
+]
+
+const result = fruits.filter(item => item.id !== 2)
+
+console.log(result)
+```
