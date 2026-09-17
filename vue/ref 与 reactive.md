@@ -126,7 +126,19 @@ form.title = '规格再确认'
 console.log(title) // 仍然是“规格确认”
 
 ```
+如下题会输出什么：
+```
+const user = reactive({
+  name: '张三'
+})
 
+const { name } = user
+
+user.name = '李四'
+
+console.log(name)
+```
+答：张三。
 ## 3.toRefs()[扩展]
 把`reactive`对象里的每个属性，分别变成一个`ref`，同时保持和原对象的连接。作用：在解构赋值后仍然保持联系。
 ```

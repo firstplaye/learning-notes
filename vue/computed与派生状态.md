@@ -23,7 +23,26 @@
 ### 为什么需要派生状态?
 因为在实际开发中，我们经常需要根据已有数据，得到一些用于显示、判断或统计的新数据。如果每次都手动保存这些新数据，就容易产生重复数据和同步问题。
 
-### computed() 是 Vue 3 中用来创建计算属性的 API。根据一个或多个响应式状态，计算出一个新的值，并且在依赖发生变化时自动更新。
+### computed() 是 Vue 3 中用来创建计算属性的 API。根据一个或多个响应式状态，计算出一个新的值，并且在依赖发生变化时自动更新。返回的是ref 类型的响应式数据
+
+```
+<script setup>
+import { computed , ref } from 'vue'
+
+const age = ref(18)
+
+const doubleAge = computed(() => age.value * 2)
+
+console.log(doubleAge)
+console.log(doubleAge.value)
+</script>
+
+<template>
+ 
+</template>
+```
+> [运行](https://play.vuejs.org/#eNp9kU1Lw0AQhv/KsJemUtaPikhpC1V60IOKiqcFick0pm52l/2ohZL/7uyGph5Kb5l53nfyzuyOLYzhm4BswqausLXx4NAHMxeqboy2HnZQ6MYEjyWMwOIKWlhZ3cCAXAOhhCq0ch7yCmEWeXZ5Ozy0Sx2+JC4S3M/JsiHM5tHBN7kMCGdw1Vu0RC51lfVGIkf7nZfo9LwLTpGp8NgYmXukCiLrazZi3tGkVV3xtdOKNt6RBgSLuWqJ9tn4mv4k2AQSiSyXUv8+pp63AUf7fvGNxc+R/tptY0+wF4sO7QYF65nPbYW+w8u3J9zSdw8bXQZJ6hPwFekKIWbsZHdBlRT7ny6lfUjvVqvq3S23HpXbLxWDRmWb9ILRA96fWP0Qd8yvk0+olq746d0H2jiVTnjDL/iYtX8VssKb)
+可见doubleAge是一个ref对象  
 
 ## computed和普通函数的区别
 computed具有缓存机制，用一个“带缓存的响应式 effect”，记录它依赖了哪些响应式数据；依赖变化时先标记缓存失效，读取结果时再重新计算。  
