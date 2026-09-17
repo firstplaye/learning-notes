@@ -60,3 +60,15 @@ search();//每次修改完后都需要自己调用函数
 请求 C 先返回 → Vue 的结果
 请求 A 后返回 → V 的结果
 ```
+
+##  immediate与执行时机
+首次立即执行时没有“上一次变化”，因此旧值通常是undefined。回调如果使用旧值，要先处理这种情况：
+```
+watch(keyword, (newValue, oldValue) => {
+  if (oldValue === undefined) {
+    console.log('首次读取：', newValue)
+    return
+  }
+  console.log('发生变化：', oldValue, '→', newValue)
+}, { immediate: true })
+```
