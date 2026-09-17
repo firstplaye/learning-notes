@@ -136,3 +136,54 @@ const result = fruits.filter(item => item.id !== 2)
 
 console.log(result)
 ```
+
+### (4)区分有数据和空列表状态
+判断列表为空时用`tasks.length === 0` 
+```
+<script setup lang="ts">
+import { ref } from "vue";
+
+type Task = {
+  id: number;
+  title: string;
+};
+
+const tasks = ref<Task[]>([]);
+
+function addTask() {
+  tasks.value.push({
+    id: Date.now(),
+    title: "学习 Vue"
+  });
+}
+
+function deleteTask(id: number) {
+  tasks.value = tasks.value.filter(task => task.id !== id);//将不等于带删除值的新数组赋给原数组
+}
+</script>
+
+<template>
+  <button @click="addTask">
+    添加任务
+  </button>
+
+  <p v-if="tasks.length === 0">//
+    暂无任务
+  </p>
+
+  <ul v-else>
+    <li
+      v-for="task in tasks"
+      :key="task.id"
+    >
+      {{ task.title }}
+
+      <button @click="deleteTask(task.id)">
+        删除
+      </button>
+    </li>
+  </ul>
+</template>
+```
+> [完成](https://play.vuejs.org/#eNp9U81u00AQfpXBp0QqdqUiDmlS8dcDHABB1UtdIdcep9ts1tbuOm0VRUKoQvyI3gC1F4qEeqvUC6IQHidO4C2Y3XXTVEX1wdqd2fnmm29m+t7dPPd7BXoNr6liyXINCnWRA49EuxV6WoXeUihYN8+khj5ITGEAqcy6EHoUF3qLoQiF3s0RViLVgRb0QwHAkgaIoruBkvwAmmmODVBaMtEmy8BGxZlQGjSFKYoj6KaBWFtfqq2t1+2LtBCxZpmAKEmMr1Z38DbG70W8QD8v1GbNWl3aB5FGX2TbtfqcM1bJQ688OR79PIJVQ9u4BibJ4FKeBDlqtKkuSrialOjOUkgZ1yhrxgStJevyWQI3Wi1iVF8MgvL09ejsw+Tk7ejXfnl2XL45+nvwrXz5e3K4N/50Ov54Ohnu/fn+fjI8KPe/uKtl1gxcU6gFdNHYzTlVRzeA5kahNTG+E3MWd6hVlUS2X6bs8Y9h+e5oNKT/VxsQuAiLRdccejdZanpsK+Eo2noTWsR5njCCoEI5fDX+fAklPwcoOCEgV44PGThzByB7mskKGphwYjnRzdfo4G7lJZ3O7RUMQL/vJLSNg4HtkPNcKXqmXxVafSqA+ZzS0/ALCdyVM6dlUHA6NIOpwt4cjT7NZ8ra/pbKBO2HnYHQi7NuzjjKJ7kZGCqq4abD+CLOs+1H1qZlgdX8Ucwmxp3/2LfUjrGF3lOJCmWP5nLq05Fso3bu5eePcYfOU2c3SwpOr69xPkOV8cJwdM/uFSIh2jPvLNuHdrNpK1fU8o5Goc6LMkTtktj3dtnvX1P6Bd0F/5aNowEmFV9otYrSoJKEt/15f8Eb/APEXJNz)
+
