@@ -91,3 +91,5 @@ price.value = 200;        // 触发响应式，computed 变为 dirty
 console.log(total.value); // 执行计算 → 600
 console.log(total.value); // 直接返回缓存 → 600
 ```
+### 判断什么时候不应额外保存一份状态
+一个值能不能通过已有状态计算出来？如果能，通常就不应该再保存一份。  
