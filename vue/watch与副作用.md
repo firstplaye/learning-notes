@@ -109,3 +109,6 @@ watch(user.age, (newAge, oldAge) => {
 <summary>点击展开</summary>
 这里只会输出一个undefined,因为user.age是一个值而不是一个监听对象或者数据源，需要写成`()=>user.age才行。
 </details>
+
+# 什么是副作用
+DOM 树相关的副作用，就是 JavaScript 或 Vue 代码直接读取、修改 DOM，或者改变页面行为的操作，例如修改文字、样式、添加元素、聚焦输入框、注册事件等。  
