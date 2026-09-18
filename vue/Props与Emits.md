@@ -152,3 +152,77 @@ import MyButton from './MyButton.vue'
 ```
 也就是：  
 不要自动放到根元素，而是指定放到内部的`input`上。  
+#### (2)关闭自动继承：`inheritAttrs: false`
+```
+<script setup>
+defineOptions({
+  inheritAttrs: false
+})
+</script>
+```
+#### (3)指定落点：`v-bind="$attrs"`
+```
+<script setup>
+defineOptions({
+  inheritAttrs: false
+})
+</script>
+
+<template>
+  <div class="wrapper">
+    <input v-bind="$attrs">
+  </div>
+</template>
+```
+完整示例：
+`MyInput.vue`
+```
+<script setup>
+defineOptions({
+  inheritAttrs: false
+})
+</script>
+
+<template>
+  <div class="input-wrapper">
+    <label>用户名</label>
+
+    <input v-bind="$attrs">
+  </div>
+</template>
+```
+`App.vue`
+```
+<script setup>
+import MyInput from './MyInput.vue'
+</script>
+
+<template>
+  <MyInput
+    id="username"
+    class="large-input"
+    type="text"
+    placeholder="请输入用户名"
+    disabled
+  />
+</template>
+```
+#### (4)modelValue和update:modelValue
+在父组件中：
+`<MyInput v-model="text" />`相当于：  
+```
+<MyInput
+  :modelValue="text"
+  @update:modelValue="text = $event"
+/>
+```
+`:modelValue="text"`:把父组件中的 text 传给子组件。  
+`@update:modelValue="text = $event"`:子组件通知父组件。  
+在子组件中使用 defineModel()：
+`const model = defineModel()`相当于：
+```const props = defineProps({
+  modelValue: String
+})
+
+const emit = defineEmits(['update:modelValue'])
+```
