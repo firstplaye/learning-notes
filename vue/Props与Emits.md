@@ -227,3 +227,22 @@ import MyInput from './MyInput.vue'
 const emit = defineEmits(['update:modelValue'])
 ```
 ##### useAttrs()：获取未声明的 Attributes
+
+## 6.provide与inject：组件树局部共享
+Props适合直接父子通信。但当祖先组件需要向较深的后代提供同一项数据时，如果每一层都只为继续转交而声明Props，就会形成逐层传递。  
+```
+<script setup>
+import { provide } from 'vue'
+import Child from './components/Child.vue'
+
+provide('message', '你好，这是祖先组件提供的数据')//message是键，子组件inject("键")必须和父组件完全一致才能拿到
+</script>
+
+<template>
+  <main>
+    <h1>App 组件</h1>
+    <Child />
+  </main>
+</template>
+```
+> [运行](https://play.vuejs.org/#eNp9Us9rE0EU/leGuWwDYVepeChrQEsPelBR8TQgy2aaTNydGWZmY2BZEGwwYopFVPxx0UPBi7EHKUKM+Weym/Tkv+DbH92WUnKb977ve/u9t1+Mb0pp9yOKt7CrfcWkQZqaSLYIZ6EUyqAYSSX6rE1RgnaVCJEFdKuGt7ssaFeA7RRVPg8IhFfCDSukWnsdajWRtZh9TQ9n//6MV/NP2cefy8MP6XC0nO4tpsfZm4PF3y/Lz3vZ+6Nsf2I1HKcSAvHk3QRE6Y+Dkst4j/pmg2DoE9xI58OTb9P07Xg5Oi4J6WScDr8vfj9fvfyVvdpfvZhlr+fp6Ihw1ykXhRWhMDSUgWcoVAi5ocd48YJ392oLjoPKca4DZQWUKzulwqkkrlNPwk1stC/4LuvYPS043DbOuQT7IpQsoOqeNExwTfAWKpAc84JAPLtT9IyKaPO073ep//SSfk8P8h7B9xXVVPUpwTVmPNWhpoR3Ht6lA3jXYCjaUQDsNeADqkUQ5R5L2q2It8H2OV7h9nYRAcY7j/TOwFCuT5fKjebMpOATDIHYXrP6md1N+1qhIzyBK9ZpWpfOMgkXwkk43F8bVOUH3ahoZ1FsrA+CbMVxrU4S18m/ee4fEw7+nhj9mKp8azB43b5ib+LkP/EERdM=)
