@@ -121,3 +121,34 @@ import MyButton from './MyButton.vue'
 </template>
 ```
 > [运行](https://play.vuejs.org/#eNp9UstOAjEU/ZWmGzYwY4JxQUYSMSw08RE1rpqYoZSx0Gmb9hYhhI0bl/oR/oT6Oz5+w3bKIBrDrvc8mnN7usAHWidTx3AHZ5YargFZBk53ieSlVgbQybznAJREI6NK1EjSGgi2BpFZGn3e4QdgpRY5MD8hlNXSMCBERW7tPsHa8DI3c4IjbGEumIcHOZ0URjk5bFEllOkMhEdqFR96iXWDkkNrEC9dMcCh8n/dv3w8vH0+Pr2/Pkcu9SmydB0JNzFYquSIF8nYKul3XgQZwVSVmgtmzjRwJS3BHVQxgcuFUHfHFQbGsWaN01tGJ//gYzsLGMHnhllmpozgNQe5KRhEun95ymb+vCZLNXTCq7eQF8wq4ULGKOv5x/KxN3RV2qOqOS6LK9ufAZO2XioEDcplpSfYN3i4ZfWfuO1kt/IRufSvuPkDwsf5XXpspxuLyNLV+LeJG7DXzIRk/oa9ZCdp4+U3uaXgAw==)
+
+### 关闭自动继承并指定落点
+#### (1)为什么不要自动继承
+例如：
+```
+<!-- 父组件 -->
+<MyInput
+  class="large"
+  placeholder="请输入姓名"
+/>
+<!-- MyInput.vue -->
+<template>
+  <div class="wrapper">
+    <input>
+  </div>
+</template>
+```
+默认情况下，Attributes 会继承到根元素：
+```
+<div class="wrapper large">
+  <input>
+</div>
+```
+但我们可能希望：
+```
+<div class="wrapper">
+  <input class="large" placeholder="请输入姓名">
+</div>
+```
+也就是：  
+不要自动放到根元素，而是指定放到内部的`input`上。  
