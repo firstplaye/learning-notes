@@ -20,3 +20,49 @@ router.replace()	跳转到新路由，不新增历史记录
 router.back()	返回上一页
 router.go(-1)	前进或后退指定的历史记录步数
 ```
+
+## 动态路由与params
+任务详情路径中的编号每次不同，可以使用动态参数：  
+```
+{
+  path: '/tasks/:id',
+  name: 'task-detail',
+  component: TaskDetailView,
+}
+```
+## RouterLink 和 RouterView
+1. RouterLink：路由导航链接:RouterLink 用来创建不会触发整页刷新的路由链接。
+```
+<template>
+  <nav>
+    <RouterLink to="/">首页</RouterLink>
+    <RouterLink to="/about">关于我们</RouterLink>
+  </nav>
+</template>
+```
+2.RouterView：路由组件显示的位置,RouterView 是一个占位组件。
+```
+<template>
+  <header>
+    <h1>我的网站</h1>
+  </header>
+
+  <RouterView />
+</template>
+```
+```
+const routes = [
+  { path: '/', component: Home },
+  { path: '/about', component: About }
+]
+```
+```
+访问 /
+    ↓
+RouterView 显示 Home.vue
+
+访问 /about
+    ↓
+RouterView 显示 About.vue
+```
+RouterView 自己不是首页，也不是关于页面，它只是显示匹配组件的位置。  
