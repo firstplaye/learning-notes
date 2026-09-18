@@ -99,3 +99,25 @@ function handleChangeTitle(newTitle,newe) {
 ## 5.透传 Attributes
 #### 当父组件给子组件传入的属性，没有被子组件声明为 props 或 emits 时，这些属性会自动添加到子组件的根元素上。
 #### 当一个组件以单个元素为根作渲染时，透传的 attribute 会自动被添加到根元素上。
+根组件
+```
+<script setup>
+import MyButton from './MyButton.vue'
+</script>
+
+<template>
+  <MyButton
+    class="primary"
+    style="background-color:black"
+    id="submit-button"
+    title="点击提交"
+  />
+</template>
+```
+子组件
+```
+<template>
+  <button>提交</button>
+</template>
+```
+> [运行](https://play.vuejs.org/#eNp9UstOAjEU/ZWmGzYwY4JxQUYSMSw08RE1rpqYoZSx0Gmb9hYhhI0bl/oR/oT6Oz5+w3bKIBrDrvc8mnN7usAHWidTx3AHZ5YargFZBk53ieSlVgbQybznAJREI6NK1EjSGgi2BpFZGn3e4QdgpRY5MD8hlNXSMCBERW7tPsHa8DI3c4IjbGEumIcHOZ0URjk5bFEllOkMhEdqFR96iXWDkkNrEC9dMcCh8n/dv3w8vH0+Pr2/Pkcu9SmydB0JNzFYquSIF8nYKul3XgQZwVSVmgtmzjRwJS3BHVQxgcuFUHfHFQbGsWaN01tGJ//gYzsLGMHnhllmpozgNQe5KRhEun95ymb+vCZLNXTCq7eQF8wq4ULGKOv5x/KxN3RV2qOqOS6LK9ufAZO2XioEDcplpSfYN3i4ZfWfuO1kt/IRufSvuPkDwsf5XXpspxuLyNLV+LeJG7DXzIRk/oa9ZCdp4+U3uaXgAw==)
