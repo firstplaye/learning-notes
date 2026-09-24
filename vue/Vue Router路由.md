@@ -66,3 +66,24 @@ RouterView 显示 Home.vue
 RouterView 显示 About.vue
 ```
 RouterView 自己不是首页，也不是关于页面，它只是显示匹配组件的位置。  
+## RouterLink 会利用客户端路由机制，通常避免整页重新加载。
+从/tasks/1直接进入/tasks/2时，两条URL使用同一个详情组件，Vue Router可能复用组件实例，因此onMounted()不会再次执行。
+
+## 子路由
+父组件中必须有 <RouterView />
+子路由的组件显示在哪里？
+显示在父组件的 <RouterView /> 中。
+```
+URL：/user/profile
+        ↓
+匹配父路由 /user
+        ↓
+App.vue 的 RouterView
+显示 User.vue
+        ↓
+User.vue 的 RouterView
+显示 Profile.vue
+```
+
+## 路由懒加载
+路由懒加载就是：只有当用户真正访问某个路由时，才加载这个路由对应的组件代码。  
