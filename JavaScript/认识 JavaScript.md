@@ -529,4 +529,24 @@ for (const key in employee) {
 ```
 > [运行](https://play.vuejs.org/#eNqVVE1vElEU/Ssvb9WGZqituqDURE0XulCjxg2vMQQedNr5ysybStOQDNqYGu2AC4xgQ1ITWzVWaEK0jZP+GfsGWPUveOcL0QIps2Hevefee86Zy9vENzVNWDcpTuCkkdFFjSGDMlO7QZR4HC2OfXzIFQG5te89q45yqo746deO3fQTPes5r2yfO/XertXdL7n2Ad/+EeTdb3tutfXbKnXaH7lTvdQoomRUxWAop5siM9AiShHcfX3iNnYJnkEE9/Zr3eqr4N39UuOHFYKXF6I6VaKCpOanCPbbDVIO+uNpH+sFpiTKkAgTZhfgJxlOFCSq5NkKhGKxabRJFATPv60DNaCYYBSD0hhQOXfeuK02sIzCQbeUuOwNLHozL+v0nODxFQRBzQ31ufOh7dqfuvZPXn4H9nZ+bZ0dH3bqW9xyJnD4f6f6Iy/6NPBBEAACZSO8GWLCxAbMRwaIyvBFK+1w+yVvnnSP9jzd5abbqJ8dn/KjhmsdTLRlVNYkdYNS2IJQjpKWaQI+KG+V3fc27FkQTuchOnctPGWpltaZTBXmQx2Ll9/2XnwmGJSO3MW+plEOr9ENBOmI0wiHA5W8shOZ7JWFKxjmLCfKRb1SAIo2MRkPLgD468OBeZA0o8EpPnDEM5gZMDsn5oVVQ1Xg6vAJEZxRZU2UqH5fYyJwIzgRUSU4LUnqs7t+jOkmDQ2DmhWaWRsSXzUKXozgBzo1qL5O+5YTzNJ6nrIgvfToHi3Aez8pq1lTAvSY5EMKvpkexwB2y1SyQHsA57O9I2uqzkQl/9hYKjCqGJEoj6iHLPp4guH+vD1G+l+688JVvw78BhefMuMJ1b2uYOF1YVaYx8U/QY8SKA==)
 
-# `...`的几种用法
+# JavaScript 中 `...` 的作用
+
+在 JavaScript 中，`...` 叫作三个点语法，根据使用位置不同，主要有两种作用：
+
+1. **展开运算符（Spread）**：把数组、对象等内容展开。
+2. **剩余参数（Rest）**：把多个参数或剩余元素收集起来。
+
+**核心区别：展开是拆开，剩余是收集。**
+
+---
+
+# 一、展开运算符（Spread）
+
+展开运算符可以把数组或对象中的内容展开到另一个地方。
+
+## 1. 展开数组
+
+```js
+const arr1 = [1, 2, 3];
+
+console.log(...arr1);
