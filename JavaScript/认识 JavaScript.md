@@ -163,3 +163,6 @@ createUser("yamada", "山田");   // arguments.length 是 2
     fn(); // 2
     fn(); // 3
 ```
+
+## **闭包的作用**
+
