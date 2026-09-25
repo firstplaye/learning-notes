@@ -60,3 +60,8 @@ Class / 属性 / 伪类
     display: flex;
     justify-content: center;
 }
+
+# 7.display：none和visibility的区别
+1. display: none：隐藏元素，不占据布局空间  
+2. visibility: hidden：隐藏元素，但保留布局空间  
+
