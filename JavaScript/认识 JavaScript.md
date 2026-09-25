@@ -481,3 +481,50 @@ for (const key in fruits) {
 特别记住：
 
 **数组优先考虑 `for...of`，普通对象需要遍历属性时考虑 `for...in`。**
+
+## 演示代码
+```
+// ==============================
+// 1. 普通 for 循环
+// 适合：需要控制循环次数、索引
+// ==============================
+
+const fruits = ["苹果", "香蕉", "橙子"];
+
+console.log("===== 普通 for =====");
+
+for (let i = 0; i < fruits.length; i++) {
+    console.log("索引：" + i + "，水果：" + fruits[i]);
+}
+
+
+// ==============================
+// 2. for...of 循环
+// 适合：直接获取数组中的值
+// ==============================
+
+console.log("===== for...of =====");
+
+for (const fruit of fruits) {
+    console.log("水果：" + fruit);
+}
+
+
+// ==============================
+// 3. for...in 循环
+// 适合：遍历对象的可枚举属性
+// ==============================
+
+const employee = {
+    name: "小明",
+    age: 25,
+    department: "开发部"
+};
+
+console.log("===== for...in =====");
+
+for (const key in employee) {
+    console.log("属性名：" + key + "，属性值：" + employee[key]);
+}
+```
+> [运行](https://play.vuejs.org/#eNqVVE1vElEU/Ssvb9WGZqituqDURE0XulCjxg2vMQQedNr5ysybStOQDNqYGu2AC4xgQ1ITWzVWaEK0jZP+GfsGWPUveOcL0QIps2Hevefee86Zy9vENzVNWDcpTuCkkdFFjSGDMlO7QZR4HC2OfXzIFQG5te89q45yqo746deO3fQTPes5r2yfO/XertXdL7n2Ad/+EeTdb3tutfXbKnXaH7lTvdQoomRUxWAop5siM9AiShHcfX3iNnYJnkEE9/Zr3eqr4N39UuOHFYKXF6I6VaKCpOanCPbbDVIO+uNpH+sFpiTKkAgTZhfgJxlOFCSq5NkKhGKxabRJFATPv60DNaCYYBSD0hhQOXfeuK02sIzCQbeUuOwNLHozL+v0nODxFQRBzQ31ufOh7dqfuvZPXn4H9nZ+bZ0dH3bqW9xyJnD4f6f6Iy/6NPBBEAACZSO8GWLCxAbMRwaIyvBFK+1w+yVvnnSP9jzd5abbqJ8dn/KjhmsdTLRlVNYkdYNS2IJQjpKWaQI+KG+V3fc27FkQTuchOnctPGWpltaZTBXmQx2Ll9/2XnwmGJSO3MW+plEOr9ENBOmI0wiHA5W8shOZ7JWFKxjmLCfKRb1SAIo2MRkPLgD468OBeZA0o8EpPnDEM5gZMDsn5oVVQ1Xg6vAJEZxRZU2UqH5fYyJwIzgRUSU4LUnqs7t+jOkmDQ2DmhWaWRsSXzUKXozgBzo1qL5O+5YTzNJ6nrIgvfToHi3Aez8pq1lTAvSY5EMKvpkexwB2y1SyQHsA57O9I2uqzkQl/9hYKjCqGJEoj6iHLPp4guH+vD1G+l+688JVvw78BhefMuMJ1b2uYOF1YVaYx8U/QY8SKA==)
