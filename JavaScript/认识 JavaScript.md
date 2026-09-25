@@ -832,3 +832,28 @@ function test(...args) {
 
 - 展开运算符：把内容展开。
 - 剩余参数：把剩余内容收集起来。
+
+#  可选链 ?.
+当访问的对象是 null 或 undefined 时，不再继续访问，而是直接返回 undefined，避免报错。用于安全访问对象的属性,方法。不能直接用于赋值。
+
+# 空值合并运算符 ??
+空值合并运算符（Nullish Coalescing Operator）?? 用于在左侧的值为 null 或 undefined 时，使用右侧的默认值。  
+```
+const name = null;
+console.log(name ?? "默认名称"); // 默认名称
+```
+```
+const name = "小明";
+console.log(name ?? "默认名称"); // 小明
+```
+**?? 只针对 null 和 undefined**
+
+## ||=：左侧是假值时赋值,??=：左侧缺少值时赋值,&&=：左侧是真值时赋值
+
+# Symbol 是什么
+Symbol 是 JavaScript 的一种原始数据类型。每次调用 Symbol() 都会创建一个唯一值。
+```
+const internalIdA = Symbol("internalId");
+const internalIdB = Symbol("internalId");
+console.log(internalIdA === internalIdB); // false
+```
