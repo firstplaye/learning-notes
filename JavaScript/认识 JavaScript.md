@@ -529,6 +529,7 @@ for (const key in employee) {
 ```
 > [运行](https://play.vuejs.org/#eNqVVE1vElEU/Ssvb9WGZqituqDURE0XulCjxg2vMQQedNr5ysybStOQDNqYGu2AC4xgQ1ITWzVWaEK0jZP+GfsGWPUveOcL0QIps2Hevefee86Zy9vENzVNWDcpTuCkkdFFjSGDMlO7QZR4HC2OfXzIFQG5te89q45yqo746deO3fQTPes5r2yfO/XertXdL7n2Ad/+EeTdb3tutfXbKnXaH7lTvdQoomRUxWAop5siM9AiShHcfX3iNnYJnkEE9/Zr3eqr4N39UuOHFYKXF6I6VaKCpOanCPbbDVIO+uNpH+sFpiTKkAgTZhfgJxlOFCSq5NkKhGKxabRJFATPv60DNaCYYBSD0hhQOXfeuK02sIzCQbeUuOwNLHozL+v0nODxFQRBzQ31ufOh7dqfuvZPXn4H9nZ+bZ0dH3bqW9xyJnD4f6f6Iy/6NPBBEAACZSO8GWLCxAbMRwaIyvBFK+1w+yVvnnSP9jzd5abbqJ8dn/KjhmsdTLRlVNYkdYNS2IJQjpKWaQI+KG+V3fc27FkQTuchOnctPGWpltaZTBXmQx2Ll9/2XnwmGJSO3MW+plEOr9ENBOmI0wiHA5W8shOZ7JWFKxjmLCfKRb1SAIo2MRkPLgD468OBeZA0o8EpPnDEM5gZMDsn5oVVQ1Xg6vAJEZxRZU2UqH5fYyJwIzgRUSU4LUnqs7t+jOkmDQ2DmhWaWRsSXzUKXozgBzo1qL5O+5YTzNJ6nrIgvfToHi3Aez8pq1lTAvSY5EMKvpkexwB2y1SyQHsA57O9I2uqzkQl/9hYKjCqGJEoj6iHLPp4guH+vD1G+l+688JVvw78BhefMuMJ1b2uYOF1YVaYx8U/QY8SKA==)
 
+
 # JavaScript 中 `...` 的作用
 
 在 JavaScript 中，`...` 叫作三个点语法，根据使用位置不同，主要有两种作用：
@@ -549,4 +550,285 @@ for (const key in employee) {
 ```js
 const arr1 = [1, 2, 3];
 
-console.log(...arr1);
+console.log(...arr1); // 1 2 3
+```
+
+相当于把数组中的元素依次取出来。
+
+### 合并数组
+
+```js
+const arr1 = [1, 2];
+const arr2 = [3, 4];
+
+const arr3 = [...arr1, ...arr2];
+
+console.log(arr3); // [1, 2, 3, 4]
+```
+
+`...arr1` 和 `...arr2` 会将数组元素展开，再组成一个新数组。
+
+### 复制数组
+
+```js
+const arr1 = [1, 2, 3];
+
+const arr2 = [...arr1];
+
+console.log(arr2); // [1, 2, 3]
+```
+
+`arr2` 是一个新数组，修改它的数组结构不会影响 `arr1`。
+
+注意：这是**浅拷贝**。如果数组中包含对象，内部对象仍然是共享引用。
+
+---
+
+## 2. 展开对象
+
+可以把一个对象的属性展开到另一个对象中。
+
+```js
+const user = {
+  name: "小明",
+  age: 20
+};
+
+const newUser = {
+  ...user,
+  city: "东京"
+};
+
+console.log(newUser);
+// { name: "小明", age: 20, city: "东京" }
+```
+
+### 复制对象
+
+```js
+const user = {
+  name: "小明",
+  age: 20
+};
+
+const copyUser = { ...user };
+
+console.log(copyUser); // { name: "小明", age: 20 }
+```
+
+`copyUser` 是一个新对象，但同样属于浅拷贝。
+
+### 合并对象与覆盖属性
+
+```js
+const user = {
+  name: "小明",
+  age: 20
+};
+
+const updatedUser = {
+  ...user,
+  age: 25
+};
+
+console.log(updatedUser);
+// { name: "小明", age: 25 }
+```
+
+**重点：** 如果展开的对象和后面的属性存在同名属性，后面的值会覆盖前面的值。
+
+---
+
+## 3. 展开运算符用于函数调用
+
+可以把数组中的元素展开，作为函数的多个参数。
+
+```js
+function add(a, b, c) {
+  return a + b + c;
+}
+
+const nums = [10, 20, 30];
+
+console.log(add(...nums)); // 60
+```
+
+相当于：
+
+```js
+add(10, 20, 30);
+```
+
+---
+
+# 二、剩余参数（Rest）
+
+剩余参数的作用是：**把多个参数或剩余元素收集到一个数组或对象中。**
+
+## 1. 函数剩余参数
+
+```js
+function test(...args) {
+  console.log(args);
+}
+
+test(10, 20, 30);
+```
+
+输出：
+
+```js
+[10, 20, 30]
+```
+
+`...args` 会把传入的所有参数收集到 `args` 数组中。
+
+### 实际示例：计算任意多个数字的总和
+
+```js
+function sum(...numbers) {
+  let total = 0;
+
+  for (const num of numbers) {
+    total += num;
+  }
+
+  return total;
+}
+
+console.log(sum(1, 2, 3));        // 6
+console.log(sum(10, 20, 30, 40)); // 100
+```
+
+---
+
+## 2. 数组解构中的剩余元素
+
+```js
+const [first, ...rest] = [10, 20, 30, 40];
+
+console.log(first); // 10
+console.log(rest);  // [20, 30, 40]
+```
+
+`...rest` 会把剩下的元素收集成一个新数组。
+
+注意：数组解构中的剩余元素必须放在最后。
+
+---
+
+## 3. 对象解构中的剩余属性
+
+```js
+const user = {
+  name: "小明",
+  age: 20,
+  city: "东京"
+};
+
+const { name, ...rest } = user;
+
+console.log(name); // "小明"
+console.log(rest); // { age: 20, city: "东京" }
+```
+
+`...rest` 会把没有被解构出来的属性收集到一个新对象中。
+
+---
+
+# 三、展开运算符与剩余参数的区别
+
+| 对比 | 展开运算符 Spread | 剩余参数 Rest |
+|---|---|---|
+| 作用 | 展开内容 | 收集内容 |
+| 常见位置 | 数组、对象、函数调用 | 函数参数、解构 |
+| 示例 | `[...arr]` | `function fn(...args)` |
+| 结果 | 把元素或属性展开 | 得到数组或对象 |
+
+### 记忆口诀
+
+- `const arr2 = [...arr1]`：把 `arr1` 展开，放入新数组。
+- `function fn(...args)`：把传入的参数收集到 `args` 数组。
+
+---
+
+# 四、容易混淆的地方
+
+## 1. `...` 和 `arguments` 的区别
+
+```js
+function test(...args) {
+  console.log(args);
+}
+
+test(1, 2, 3); // [1, 2, 3]
+```
+
+`args` 是一个真正的数组，可以直接使用 `map()`、`filter()` 等数组方法。
+
+而普通函数中的 `arguments` 是类数组对象，不是真正的数组。
+
+---
+
+## 2. 展开对象时的属性覆盖
+
+```js
+const a = { name: "小明" };
+const b = { name: "小红" };
+
+const result = { ...a, ...b };
+
+console.log(result); // { name: "小红" }
+```
+
+后展开的对象会覆盖前面同名的属性。
+
+---
+
+## 3. 展开运算符是浅拷贝
+
+```js
+const user = {
+  name: "小明",
+  address: {
+    city: "东京"
+  }
+};
+
+const copyUser = { ...user };
+
+copyUser.name = "小红";
+copyUser.address.city = "大阪";
+
+console.log(user.name); // "小明"
+console.log(user.address.city); // "大阪"
+```
+
+原因：
+
+- `name` 是基本类型，修改复制对象的 `name` 不会影响原对象。
+- `address` 是对象，复制后仍然引用同一个内部对象。
+
+---
+
+# 五、总结
+
+记住这三个最常见的用法：
+
+```js
+// 1. 展开数组
+const arr = [...[1, 2, 3]];
+
+// 2. 复制或合并对象
+const obj = { ...{ name: "小明" }, age: 20 };
+
+// 3. 收集函数参数
+function test(...args) {
+  console.log(args);
+}
+```
+
+**核心理解：** `...` 的含义取决于所在的语法位置：
+
+- 展开运算符：把内容展开。
+- 剩余参数：把剩余内容收集起来。
