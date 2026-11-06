@@ -168,7 +168,33 @@ createUser("yamada", "山田");   // arguments.length 是 2
 1.保存变量状态：让函数执行结束后，变量仍然可以被访问。  
 2.实现数据私有化：让外部无法直接修改某些变量，只能通过指定的函数操作。  
 3.保存函数执行时的环境：让函数记住创建时的变量。  
-4.实现计数器、缓存、回调函数等功能。  
+4.实现计数器、缓存、回调函数等功能。
+### 实际例子：用闭包实现防抖
+连续触发时不断重新计时，等一段时间没有新触发后，再执行函数。
+```
+function debounce(fn, delay) {
+  let timerId;
+
+  return function (...args) {
+    clearTimeout(timerId);
+
+    timerId = setTimeout(() => {
+      fn.apply(this, args);
+    }, delay);
+  };
+}
+
+const search = debounce((keyword) => {
+  console.log("搜索：", keyword);
+}, 300);
+
+search("J");
+search("Ja");
+search("JavaScript");
+
+// 在最后一次调用后等待约 300ms，输出：
+// 搜索： JavaScript
+```  
 
 
 # JavaScript 中 `for`、`for...of` 和 `for...in` 的区别
