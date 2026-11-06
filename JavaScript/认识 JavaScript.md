@@ -861,7 +861,15 @@ function test(...args) {
 
 #  可选链 ?.
 当访问的对象是 null 或 undefined 时，不再继续访问，而是直接返回 undefined，避免报错。用于安全访问对象的属性,方法。不能直接用于赋值。
+```
+const user = {
+  name: "小明"
+};
 
+const city = user?.address?.city ?? "未知城市";
+
+console.log(city); // "未知城市"
+```
 # 空值合并运算符 ??
 空值合并运算符（Nullish Coalescing Operator）?? 用于在左侧的值为 null 或 undefined 时，使用右侧的默认值。  
 ```
@@ -883,3 +891,45 @@ const internalIdA = Symbol("internalId");
 const internalIdB = Symbol("internalId");
 console.log(internalIdA === internalIdB); // false
 ```
+
+# 与数组相关的函数
+## splice()
+用于在数组的指定位置删除、插入或替换元素。  
+`array.splice(start, deleteCount, item1, item2, ...)`start:从哪个索引开始操作deleteCount:删除多少个元素item1, item2, ...:在该位置插入的元素，可省略
+```
+const arr = ["a", "b", "c", "d"];
+
+const removed = arr.splice(1, 2, "x", "y");
+
+console.log(arr);     // ["a", "x", "y", "d"]
+console.log(removed); // ["b", "c"]
+```
+返回的是被删除的元素
+
+## foreach()
+用于遍历数组，对每个元素执行一次指定的操作，例如打印内容、更新页面、修改对象属性。
+```
+array.forEach((element, index, array) => {
+  // 对当前元素执行操作
+});
+```
+| 参数 | 含义 |
+|---|---|
+| `element` | 当前元素 |
+| `index` | 当前元素的索引 |
+| `array` | 正在遍历的原数组 |
+需要索引时：  
+```
+fruits.forEach((fruit, index) => {
+  console.log(`第 ${index + 1} 个水果：${fruit}`);
+});
+
+// 第 1 个水果：苹果
+// 第 2 个水果：香蕉
+// 第 3 个水果：橙子
+```
+forEach() 的返回值是 undefined
+## filter()
+逐项检查元素，把符合条件的元素放进一个新数组，并保持原有顺序。  
+`const 新数组 = 原数组.filter(元素 => 保留条件);`
+
