@@ -168,3 +168,18 @@ Access-Control-Request-Method: PUT
 
 # Axios 是什么？
 Axios 是一个基于 Promise 的 JavaScript HTTP 请求库，主要用于在前端向服务器发送 HTTP 请求、接收服务器返回的数据。
+```
+import axios from "axios";
+
+async function getUsers() {
+  try {
+    const response = await axios.get("/api/users");
+
+    console.log("服务器返回的数据：", response.data);
+  } catch (error) {
+    console.error("获取用户失败：", error.message);
+  }
+}
+
+getUsers();
+```
