@@ -297,3 +297,9 @@ element.innerHTML = "<strong>HTML内容</strong>";
 * `textContent`：看所有文本。
 * `innerText`：看显示的文本。
 * `innerHTML`：看 HTML 结构。
+
+# NodeList 和 Array 有什么区别？
+querySelectorAll() 返回的不是 Array，而是 NodeList。  
+NodeList：主要用于保存 DOM 节点的集合。  
+Array：JavaScript 原生数组，可以保存任意类型的数据，并支持丰富的数组操作方法。  
+NodeList 是 DOM 节点集合，Array 是 JavaScript 原生数组。两者都支持通过索引访问元素、获取 length 和使用 forEach。但是 NodeList 不支持 map、filter、reduce 等数组方法。
