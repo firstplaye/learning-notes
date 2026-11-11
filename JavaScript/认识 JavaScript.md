@@ -23,6 +23,7 @@ null属于object类
 NaN不是有效数字，NaN属于number，判断时需要用`isNaN()`不能用`===`因为`NaN===NaN`为`false`  
 
 # 变量提升
+![alt text](image.png)
 JavaScript执行代码前，会先处理当前作用域中的变量声明。这个现象称为变量提升（hoisting）。  
 var，let，const，function都会变量提升，但是let，const会暂时性死区，不能被提前调用。  
 ```js
@@ -144,7 +145,8 @@ createUser("yamada", "山田");   // arguments.length 是 2
 ```
 
 # 函数闭包
-内部函数记住了外部函数的变量，即使外部函数已经执行结束，这些变量仍然可以被内部函数使用。
+## 什么是闭包
+闭包是指函数能够记住并访问其定义时所在的词法作用域中的变量，即使外部函数已经执行完毕。
 ```js
     function outer() {
         let count = 0;
@@ -195,7 +197,8 @@ search("JavaScript");
 // 在最后一次调用后等待约 300ms，输出：
 // 搜索： JavaScript
 ```  
-
+### 面试常考 
+闭包可以用来实现私有变量、保存状态和封装功能，但如果不必要地长期保存对大对象的引用，也可能增加内存占用。
 
 # JavaScript 中 `for`、`for...of` 和 `for...in` 的区别
 
@@ -210,7 +213,7 @@ search("JavaScript");
 | `for...in` | 遍历对象的可枚举属性 | 每次获取一个属性名（键） |
 
 ---
-
+![alt text](image-2.png)
 ## 二、普通 `for` 循环
 
 普通 `for` 循环可以自己控制循环变量的初始值、结束条件和变化方式。
@@ -905,7 +908,11 @@ console.log(arr);     // ["a", "x", "y", "d"]
 console.log(removed); // ["b", "c"]
 ```
 返回的是被删除的元素
-
+### splice()与slice()的区别
+slice() 的结束索引不包含在截取范围内。返回的是截取出来的新数组。  
+![alt text](image-3.png)  
+slice() 不会修改原数组。返回的是被删除的元素组成的数组。  
+![alt text](image-4.png)  
 ## foreach()
 用于遍历数组，对每个元素执行一次指定的操作，例如打印内容、更新页面、修改对象属性。
 ```
