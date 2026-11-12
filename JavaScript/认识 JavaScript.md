@@ -773,7 +773,7 @@ console.log(rest); // { age: 20, city: "东京" }
 | 常见位置 | 数组、对象、函数调用 | 函数参数、解构 |
 | 示例 | `[...arr]` | `function fn(...args)` |
 | 结果 | 把元素或属性展开 | 得到数组或对象 |
-
+![alt text](image-10.png)  
 ### 记忆口诀
 
 - `const arr2 = [...arr1]`：把 `arr1` 展开，放入新数组。
@@ -885,7 +885,14 @@ console.log(name ?? "默认名称"); // 小明
 ```
 **?? 只针对 null 和 undefined**
 
+# ||：逻辑或运算符
+如果左侧是 truthy（真值），返回左侧；否则返回右侧。
+![alt text](image-11.png)
+
 ## ||=：左侧是假值时赋值,??=：左侧缺少值时赋值,&&=：左侧是真值时赋值
+
+## ?.、??、= 的区别
+![alt text](image-12.png)
 
 # Symbol 是什么
 Symbol 是 JavaScript 的一种原始数据类型。每次调用 Symbol() 都会创建一个唯一值。
@@ -961,3 +968,25 @@ const result = array.reduce(
 ![alt text](image-9.png)   
 另外，如果回调不返回值，下一次的 acc 就会变成 undefined。因此理解 return 的作用非常重要。
 ### 分类统计
+```
+const employees = [
+    { name: "田中", dept: "IT" },
+    { name: "佐藤", dept: "HR" },
+    { name: "鈴木", dept: "IT" },
+    { name: "山田", dept: "IT" },
+    { name: "高橋", dept: "HR" }
+];
+
+const result = employees.reduce((acc, emp) => {
+    if (!acc[emp.dept]) {
+        acc[emp.dept] = 0;//将初始值设为0
+    }
+
+    acc[emp.dept]++;
+
+    return acc;
+}, {});
+
+console.log(result);
+```
+`result:{ IT: 3, HR: 2 }`  
