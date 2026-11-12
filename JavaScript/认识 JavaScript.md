@@ -939,4 +939,25 @@ forEach() 的返回值是 undefined
 ## filter()
 逐项检查元素，把符合条件的元素放进一个新数组，并保持原有顺序。  
 `const 新数组 = 原数组.filter(元素 => 保留条件);`
-
+## map()
+遍历数组中的每个元素，对每个元素执行一次处理，并将处理结果组成一个新数组返回。
+```
+const newArray = array.map((element, index, array) => {
+    return 处理后的值;
+});
+```
+![alt text](image-7.png)  
+![alt text](image-8.png)  
+## reduce()
+将数组中的多个元素经过累计计算，最终得到一个结果。
+```
+const result = array.reduce(
+    (accumulator, currentValue, currentIndex, array) => {
+        return 更新后的accumulator;
+    },
+    initialValue
+);
+```
+![alt text](image-9.png)   
+另外，如果回调不返回值，下一次的 acc 就会变成 undefined。因此理解 return 的作用非常重要。
+### 分类统计

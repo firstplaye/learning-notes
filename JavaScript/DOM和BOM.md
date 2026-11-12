@@ -84,6 +84,7 @@ currentTarget
 ```
 
 # 事件传播的三个阶段
+![alt text](image-6.png)  
 实际上，DOM 事件传播通常分为三个阶段：
 ```
 第一阶段：捕获阶段
@@ -303,3 +304,34 @@ querySelectorAll() 返回的不是 Array，而是 NodeList。
 NodeList：主要用于保存 DOM 节点的集合。  
 Array：JavaScript 原生数组，可以保存任意类型的数据，并支持丰富的数组操作方法。  
 NodeList 是 DOM 节点集合，Array 是 JavaScript 原生数组。两者都支持通过索引访问元素、获取 length 和使用 forEach。但是 NodeList 不支持 map、filter、reduce 等数组方法。
+
+# event.target 和 event.currentTarget 的区别
+event.target：实际触发事件的目标元素。  
+event.currentTarget：当前正在执行事件监听器的元素。 
+
+# 如何阻止事件冒泡？
+event.stopPropagation();
+```
+child.addEventListener("click", function(event) {
+    event.stopPropagation();
+    console.log("child clicked");
+});
+```
+**preventDefault()**阻止浏览器默认行为
+
+# 什么是事件委托（Event Delegation）？
+不分别给每个子元素添加事件监听器，而是给它们共同的父元素添加监听器，通过事件冒泡处理子元素的事件。
+```
+<ul id="list">
+    <li>Java</li>
+    <li>JavaScript</li>
+    <li>Python</li>
+</ul>
+const list = document.querySelector("#list");
+
+list.addEventListener("click", function(event) {
+    if (event.target.matches("li")) {
+        console.log(event.target.textContent);
+    }
+});
+```
