@@ -34,3 +34,4 @@ localStorage：保存刷新或重新打开页面后仍要保留的少量数据�
 sessionStorage：保存当前标签页使用的临时数据。
 ```
 它们都按照 key → value 保存数据，而且 key 和 value 最终都是字符串。保存对象或数组时，需要先转换为 JSON 文本。
+![alt text](image-18.png)

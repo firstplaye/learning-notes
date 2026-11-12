@@ -112,3 +112,20 @@ watch(user.age, (newAge, oldAge) => {
 
 # 什么是副作用
 DOM 树相关的副作用，就是 JavaScript 或 Vue 代码直接读取、修改 DOM，或者改变页面行为的操作，例如修改文字、样式、添加元素、聚焦输入框、注册事件等。  
+
+# computed() 与 watch() 的区别
+computed：根据已有状态计算出新值  
+watch：观察变化并执行操作  
+![alt text](image-2.png)
+
+# 连续执行三次 count.value = ...，默认情况下 watch 回调会执行几次？为什么？
+这三个修改操作在同一个同步函数中连续执行。Vue 会批量处理监听器回调和组件更新，以避免连续同步修改时产生大量重复工作。
+![alt text](image-3.png)
+
+## watchEffect()
+watchEffect() 会自动记录它执行过程中用到了哪些响应式变量。只有这些被记录的变量发生变化，才会触发它重新执行。
+### watch() 和 watchEffect() 在依赖追踪方面有什么区别？
+watch()：明确指定监听对象watchEffect()：自动追踪执行时读取的响应式数据
+### 为什么 watchEffect() 不需要设置 immediate: true 就可以在初始化时执行？
+因为 watchEffect() 的设计就是立即执行一次副作用函数，并在执行时收集依赖。它必须先运行函数，才能知道函数实际读取了哪些响应式数据。  
+![alt text](image-4.png)

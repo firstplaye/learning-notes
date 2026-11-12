@@ -112,3 +112,7 @@ console.log(total.value); // 直接返回缓存 → 600
 ```
 ### 判断什么时候不应额外保存一份状态
 一个值能不能通过已有状态计算出来？如果能，通常就不应该再保存一份。  
+
+# ref 与 computed 的区别
+computed() 是具有依赖追踪和缓存机制的计算属性。
+![alt text](image.png)

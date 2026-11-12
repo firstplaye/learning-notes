@@ -335,3 +335,6 @@ list.addEventListener("click", function(event) {
     }
 });
 ```
+
+# textContent和innerHTML
+都能读取或修改元素内部的纯文本。但是innerHTML会直接拼接代码，可能造成跨站脚本攻击。

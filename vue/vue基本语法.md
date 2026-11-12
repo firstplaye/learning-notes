@@ -115,27 +115,23 @@ const fruits = ['苹果', '香蕉', '橘子']
 > [运行](https://play.vuejs.org/#eNp9Uc1KAzEQfpWQSy91V1A8lK2g0oMeVFS8GJGynda02STkp1aWfQDx4kVQEI+CBx/AB7LUt3CSbasH6Skz833zzTeTku5onYw90BbNbG64dsSC83qbyVxJ60jfeO4saZOLxuz+c/r60miSxvfb8+zxLkTT96evj4fGJZNZWvdjJyYOCi26DjAjJPMivhgJTsZrfWXajEZlwuV8BKOkNYLbBcDovIWQsqwppKrmKqngtXAalbN0OY42qbPovM8HydAqiXuVgclorgrNBZgj7ThuxmiLRCRgXSHUzUGsOeOhuajn15CP/qkP7STUGD02YMGMgdEl5rpmAGg/wJ3TQ5hgvAQL1fMC2SvAE7BK+OCxpu162UPbf3jR7X6hlXFcDs5sZ+JA2sVSwWhgVpHPKH7u3orVf+1uJJuxj8kKr3jl7DmYoIon3ErWkw1a/QCk37qW)
 
 ### (1)为什么要写 :key？
-key 是 Vue 用来识别每一个列表项目的标识。
+key 是 Vue 用来识别每一个列表项目的标识。帮助vue在前后两次渲染之间识别同一个节点，从而正确复用或移动DOM元素和组件实例。
 
 ### (2)为什么不建议直接用数组索引？
 如果列表会增加、删除、排序，索引可能发生变化，Vue 就不容易准确识别原来的项目。
-
-### (3)push()、find()、属性赋值和filter() 的区别
-`push()`：在数组末尾添加元素,返回值： 修改后的数组长度   
-`find()`: 查找符合条件的第一个元素,返回值：第一个符合条件的元素,找不到时： undefined。  
-属性赋值不是一个数组方法，而是直接给对象属性设置新值。  
-`filter()`：筛选出符合条件的所有元素,返回值：一个新数组
 ```
-const fruits = [
-  { id: 1, name: '苹果' },
-  { id: 2, name: '香蕉' },
-  { id: 3, name: '橘子' }
-]
-
-const result = fruits.filter(item => item.id !== 2)
-
-console.log(result)
+<li
+    v-for="(user, index) in users"
+    :key="index"
+>
+    <input :value="user.name">
+</li>
 ```
+![alt text](image-6.png)
+问题出现了：key=0 原本代表 Tom，现在却代表 Mike。Vue 可能复用原来 key=0 的 DOM 或组件实例，而不是将 Tom 对应的整个节点移动到新位置。如果节点内部包含输入框未受控的状态、组件内部状态等，就可能导致状态与列表中的实际数据错位。
+
+### (3)unshift() 与 push() 的区别
+![alt text](image-5.png)
 
 ### (4)区分有数据和空列表状态
 判断列表为空时用`tasks.length === 0` 
@@ -224,3 +220,16 @@ const username = ref("");
   <p>输入的内容：{{ username }}</p>
 </template>
 ```
+### v-model 的双向绑定原理
+1. Model -> View（数据到视图）：通过 v-bind 绑定表单元素的 value 属性（例如 :value="message"）。当数据发生改变时，视图上的输入框内容会自动更新。  
+2. View -> Model（视图到数据）：通过 v-on 监听表单元素的输入事件（如 input 或 change 事件）。当用户在输入框打字时，触发该事件，在回调函数中把输入框最新的 e.target.value 赋值给对应的响应式数据。  
+```
+<!-- 使用 v-model -->
+<input v-model="message" />
+
+<!-- 等价于 -->
+<input :value="message" @input="message = $event.target.value" />
+
+```
+### v-model 与 :value 的区别
+:value 是单向绑定,:value + @input 实现双向绑定

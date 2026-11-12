@@ -1,4 +1,5 @@
 ## 在 Vue Router 中，route 和 router的区别
+![alt text](image-10.png)
 route 表示当前正在访问的路由对象，里面有当前 URL、路径参数、查询参数等信息。  
 ```
 <script setup>
@@ -69,6 +70,9 @@ RouterView 自己不是首页，也不是关于页面，它只是显示匹配组
 ## RouterLink 会利用客户端路由机制，通常避免整页重新加载。
 从/tasks/1直接进入/tasks/2时，两条URL使用同一个详情组件，Vue Router可能复用组件实例，因此onMounted()不会再次执行。
 
+# URL 结构
+![alt text](image-9.png)
+
 ## 子路由
 父组件中必须有 <RouterView />
 子路由的组件显示在哪里？
@@ -87,3 +91,24 @@ User.vue 的 RouterView
 
 ## 路由懒加载
 路由懒加载就是：只有当用户真正访问某个路由时，才加载这个路由对应的组件代码。  
+
+# 路由守卫
+在页面跳转前后执行判断、拦截、重定向或其他处理。  
+例如，在实际开发中：  
+- 用户没有登录，访问 /home，自动跳转到 /login。  
+- 普通员工访问管理员页面 /admin，拒绝访问。  
+- 用户正在填写申请表，还没有保存，离开页面前弹出确认提示。  
+- 页面跳转成功后，自动修改浏览器标题。  
+- 进入用户详情页前，检查该用户是否存在。  
+## 路由守卫的分类
+![alt text](image-11.png)
+## router.beforeEach()
+```
+router.beforeEach((to, from) => {
+    // 路由跳转之前执行
+})
+```
+to：即将访问的目标路由。  
+from：当前准备离开的路由。  
+## 路由守卫的 return 有什么作用？
+![alt text](image-12.png)

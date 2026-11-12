@@ -45,7 +45,7 @@ const task = ref({
 ```
 
 ### (2)`reactive()`和`ref()`的区别
-
+![alt text](image-1.png)
 #### (1)当ref(对象)时，对于对象.value重新赋值时本质上是给了value一个新的对象。
 
 ```
@@ -114,6 +114,7 @@ console.log(user.age);
 > [运行](https://play.vuejs.org/#eNp9UkFr1EAY/SvDXLaFJSmueFhjQaUHPaioeBqQkH4bU5OZYWayLoScREVpi4IouioqeqoivZS6rv8mCevJv+A3EzdWKL2EzHvfm/fmzRT0vJTeOAc6pIGOVCIN0WByuc54kkmhDCmIgjAyyRj6+DciJRkpkZEeinqMR4JrQ3INipzrBlcKxgnhYQZD0qvn76vDx72+hcIYkVNrjJerjDPu+0slCnDRaZq3u/V0ajUOdbIBynBV2m/z9VPz8qCav26efP71/NXv+XY9RZeZ3a1582Ux26v331WzXZeu/vZ9sf+hOtxZ3P9ZP9xZfNxrth/VT5/VDw6qHy9alnEr9aw9pln6/0XRHkHrb/cTKXipiFc6werZYwjUWJzxwG9rxUJxYSCTaWgAV4QEcr0oXAOtcVkGvi3+P8aaL4nAP6JnnPap0eg8SmJvSwuOd+iKZzQSmUxSUFelSTAZo0PbMDaJXJim4t5lhxmVg7sXp7kD0d1j8C09sRij1xRgoDEw2nEmVDGYlt64cQUm+N+RmdjMU5w+gbwO2FpuM7ZjF3K+ibGPzLm0l9xLTHh8U29MDHC9PJQNaidLN88ovsmLJxz9X9yBd9rp8CVii7eNvgXK7ooVnvHWvAEt/wBRNijp)
 
 #### (3)解构为什么可能失去响应性
+从 reactive 对象中解构出来的基本类型值，会失去与原对象属性之间的响应式连接。
 ```
 const form = reactive({
   title: '规格确认',
@@ -139,7 +140,8 @@ user.name = '李四'
 console.log(name)
 ```
 答：张三。
-## 3.toRefs()[扩展]
+## 如何解决 reactive 解构丢失响应式的问题？
+### toRefs()和toRef()[扩展]
 把`reactive`对象里的每个属性，分别变成一个`ref`，同时保持和原对象的连接。作用：在解构赋值后仍然保持联系。
 ```
 <script setup>

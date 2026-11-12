@@ -1,4 +1,5 @@
 # Props与Emits
+父组件使用 Props 向子组件传递数据，子组件使用 Emit 向父组件发送事件。
 ## 1.为什么需要Props与Emits
 组件需要协作，但又不能互相乱改数据。Props与Emits解决了组件之间怎么传递数据和通知事情的问题。
 
@@ -247,3 +248,12 @@ provide('message', '你好，这是祖先组件提供的数据')//message是键�
 </template>
 ```
 > [运行](https://play.vuejs.org/#eNp9Us9rE0EU/leGuWwDYVepeChrQEsPelBR8TQgy2aaTNydGWZmY2BZEGwwYopFVPxx0UPBi7EHKUKM+Weym/Tkv+DbH92WUnKb977ve/u9t1+Mb0pp9yOKt7CrfcWkQZqaSLYIZ6EUyqAYSSX6rE1RgnaVCJEFdKuGt7ssaFeA7RRVPg8IhFfCDSukWnsdajWRtZh9TQ9n//6MV/NP2cefy8MP6XC0nO4tpsfZm4PF3y/Lz3vZ+6Nsf2I1HKcSAvHk3QRE6Y+Dkst4j/pmg2DoE9xI58OTb9P07Xg5Oi4J6WScDr8vfj9fvfyVvdpfvZhlr+fp6Ihw1ykXhRWhMDSUgWcoVAi5ocd48YJ392oLjoPKca4DZQWUKzulwqkkrlNPwk1stC/4LuvYPS043DbOuQT7IpQsoOqeNExwTfAWKpAc84JAPLtT9IyKaPO073ep//SSfk8P8h7B9xXVVPUpwTVmPNWhpoR3Ht6lA3jXYCjaUQDsNeADqkUQ5R5L2q2It8H2OV7h9nYRAcY7j/TOwFCuT5fKjebMpOATDIHYXrP6md1N+1qhIzyBK9ZpWpfOMgkXwkk43F8bVOUH3ahoZ1FsrA+CbMVxrU4S18m/ee4fEw7+nhj9mKp8azB43b5ib+LkP/EERdM=)
+
+## provide/inject可以跨越中间组件传递依赖，而且传递 Ref 时能够保留响应式连接。
+## provide/inject、Props/Emit的区别
+![alt text](image-8.png)
+
+# 为什么不能直接修改 props？如果需要修改父组件的数据，应该怎么做？
+Props 遵循单向数据流。Vue 希望数据修改由拥有该状态的组件负责。  
+Props + Emit：子组件通知父组件，由父组件修改数据。
+v-model + defineModel()：适合表单输入、弹窗开关等需要双向绑定的场景。
