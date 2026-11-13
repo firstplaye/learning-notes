@@ -31,4 +31,6 @@ function App() {
 ## navigate() 的作用是通过代码控制页面跳转
 
 # 路由守卫
-通常通过中间组件封装权限检查
+React Router 中通常通过一个中间组件（例如 ProtectedRoute）来封装权限检查。它相当于一个包裹受保护页面的组件：先检查登录状态和角色权限，满足条件才渲染页面，否则重定向。
+![alt text](image-6.png)
+
